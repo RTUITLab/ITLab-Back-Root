@@ -1,0 +1,18 @@
+[submodule "ITLab-Back"]
+	path = ITLab-Back
+	url = https://github.com/RTUITLab/ITLab-Back.git
+[submodule "ITLab-Salary"]
+	path = ITLab-Salary
+	url = https://github.com/RTUITLab/ITLab-Salary.git
+[submodule "ITLab-Reports"]
+	path = ITLab-Reports
+	url = https://github.com/RTUITLab/ITLab-Reports.git
+[submodule "ITLab-Projects"]
+	path = ITLab-Projects
+	url = https://github.com/RTUITLab/ITLab-Projects.git
+[submodule "ITLab-Notify"]
+	path = ITLab-Notify
+	url = https://github.com/RTUITLab/ITLab-Notify.git
+[submodule "ITLab-Identity"]
+	path = ITLab-Identity
+	url = https://github.com/RTUITLab/ITLab-Identity.git
