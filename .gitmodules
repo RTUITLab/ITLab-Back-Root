@@ -16,3 +16,6 @@
 [submodule "ITLab-Identity"]
 	path = ITLab-Identity
 	url = https://github.com/RTUITLab/ITLab-Identity.git
+[submodule "ITLab-DocsGen"]
+	path = ITLab-DocsGen
+	url = https://github.com/RTUITLab/ITLab-DocsGen.git
