@@ -6,6 +6,7 @@ services:
     ports:
       - 5501:5501
       - 5502:5502
+      - 5503:5503
     restart: on-failure
   identity:
     build: ITLab-Identity/deploy/identity
@@ -23,6 +24,13 @@ services:
       - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
       - ConnectionStrings__AdminLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
       - ConnectionStrings__AdminAuditLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
+  back:
+    build: ITLab-Back/deploy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - UseDebugEmailSender=true
+      - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
+
   postgres:
     image: postgres:13-alpine
     environment:

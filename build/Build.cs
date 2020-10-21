@@ -20,16 +20,26 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.BuildIdentity);
+    public static int Main () => Execute<Build>(x => x.BuildAll);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     AbsolutePath IdentityDirectory = RootDirectory / "ITLab-Identity";
+    AbsolutePath BackDirectory = RootDirectory / "ITLab-Back";
 
     Target BuildIdentity => _ => _
         .Executes(() => {
             Run("nuke", workingDirectory: IdentityDirectory);
         });
 
+    Target BuildBack => _ => _
+        .Executes(() => {
+            Run("nuke", workingDirectory: BackDirectory);
+        });
+
+    Target BuildAll => _ => _
+        .DependsOn(BuildIdentity, BuildBack)
+        .Executes(() => {
+        });
 }

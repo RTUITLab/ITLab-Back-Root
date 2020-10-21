@@ -8,3 +8,10 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+  back:
+    image: rtuitlab/itlab-back
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
