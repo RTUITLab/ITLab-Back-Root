@@ -20,7 +20,7 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.BuildAll);
+    public static int Main() => Execute<Build>(x => x.BuildAll);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -28,29 +28,48 @@ class Build : NukeBuild
     AbsolutePath IdentityDirectory = RootDirectory / "ITLab-Identity";
     AbsolutePath BackDirectory = RootDirectory / "ITLab-Back";
     AbsolutePath DocsGenDirectory = RootDirectory / "ITLab-DocsGen";
+    AbsolutePath NotifyDirectory = RootDirectory / "ITLab-Notify";
 
     Target BuildIdentity => _ => _
-        .Executes(() => {
+        .Executes(() =>
+        {
             Run("nuke", workingDirectory: IdentityDirectory);
         });
 
     Target BuildBack => _ => _
-        .Executes(() => {
+        .Executes(() =>
+        {
             Run("nuke", workingDirectory: BackDirectory);
         });
 
     Target BuildDocsGen => _ => _
-        .Executes(() => {
-            Run("gradlew", "build", 
+        .Executes(() =>
+        {
+            Run("gradlew", "build",
                 windowsName: "cmd", windowsArgs: "/c gradlew build",
                 workingDirectory: DocsGenDirectory);
-            Run("gradlew", "copyLibToDeploy", 
+            Run("gradlew", "copyLibToDeploy",
                 windowsName: "cmd", windowsArgs: "/c gradlew copyLibToDeploy",
                 workingDirectory: DocsGenDirectory);
         });
+    Target BuildNotify => _ => _
+        .Executes(() =>
+        {
+            Run("gradlew", "build",
+                windowsName: "cmd", windowsArgs: "/c gradlew build",
+                workingDirectory: NotifyDirectory);
+            Run("gradlew", "copyLibToDeploy",
+                windowsName: "cmd", windowsArgs: "/c gradlew copyLibToDeploy",
+                workingDirectory: NotifyDirectory);
+        });
 
     Target BuildAll => _ => _
-        .DependsOn(BuildIdentity, BuildBack, BuildDocsGen)
-        .Executes(() => {
+        .DependsOn(
+            BuildIdentity,
+            BuildBack,
+            BuildDocsGen,
+            BuildNotify)
+        .Executes(() =>
+        {
         });
 }
