@@ -30,7 +30,14 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - UseDebugEmailSender=true
       - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
-
+      - DocsGeneratorSettings__AccessToken=DOCS_ACCESS.TokeN
+  docsgen:
+    build: ITLab-DocsGen/deploy
+    environment:
+      - Url=http://back:5503
+      - Key=DOCS_ACCESS.TokeN
+      - Header=Authorization
+      - IssuerUrl=http://127.0.0.1.xip.io:5501
   postgres:
     image: postgres:13-alpine
     environment:

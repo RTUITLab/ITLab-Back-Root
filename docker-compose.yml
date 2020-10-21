@@ -15,3 +15,10 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+  docsgen:
+    image: rtuitlab/itlab-docsgen
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"

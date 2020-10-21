@@ -27,6 +27,7 @@ class Build : NukeBuild
 
     AbsolutePath IdentityDirectory = RootDirectory / "ITLab-Identity";
     AbsolutePath BackDirectory = RootDirectory / "ITLab-Back";
+    AbsolutePath DocsGenDirectory = RootDirectory / "ITLab-DocsGen";
 
     Target BuildIdentity => _ => _
         .Executes(() => {
@@ -38,8 +39,18 @@ class Build : NukeBuild
             Run("nuke", workingDirectory: BackDirectory);
         });
 
+    Target BuildDocsGen => _ => _
+        .Executes(() => {
+            Run("gradlew", "build", 
+                windowsName: "cmd", windowsArgs: "/c gradlew build",
+                workingDirectory: DocsGenDirectory);
+            Run("gradlew", "copyLibToDeploy", 
+                windowsName: "cmd", windowsArgs: "/c gradlew copyLibToDeploy",
+                workingDirectory: DocsGenDirectory);
+        });
+
     Target BuildAll => _ => _
-        .DependsOn(BuildIdentity, BuildBack)
+        .DependsOn(BuildIdentity, BuildBack, BuildDocsGen)
         .Executes(() => {
         });
 }
