@@ -3,6 +3,7 @@ Root config for ITLab-back
 
 ## Requirement
 * .Net core SDK 3.1
+* JDK 11+
 
 Services in backend part:
 | Service        | Status      | Available on                              | Inner port            |
