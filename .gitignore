@@ -1,2 +1,5 @@
 # Nuke
 .tmp
+
+env.ps1
+env.sh

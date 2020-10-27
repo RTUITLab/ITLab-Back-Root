@@ -22,3 +22,12 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+  projects-back:
+    image: rtuitlab/itlab-projects-back
+    environment:
+      - ITLABPROJ_GHACCESSTOKEN=${ITLABPROJ_GH_ACCESS_TOKEN?Place GitHub acces token for projects-back in ITLABPROJ_GH_ACCESS_TOKEN}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"

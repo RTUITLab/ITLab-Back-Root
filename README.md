@@ -12,8 +12,8 @@ Services in backend part:
 | Identity Admin | Done        | http://127.0.0.1.xip.io:5502              | 5502                  |
 | Backend        | Done        | http://127.0.0.1.xip.io:5503/api/         | 5503                  |
 | DocsGen        | Done        | http://127.0.0.1.xip.io:5503/api/docsgen/ | 8080 (should be 5504) |
-| Notify         | In progress | -                                         | -                     |
 | Projects       | In progress | -                                         | -                     |
+| Notify         | In progress | -                                         | -                     |
 | Reports        | In progress | -                                         | -                     |
 | Salary         | In progress | -                                         | -                     |
 
