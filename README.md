@@ -1,9 +1,6 @@
 # ITLab-Back-Root
 Root config for ITLab-back
 
-## Requirement
-* .Net core SDK 3.1
-* JDK 11+
 
 Services in backend part:
 | Service        | Status      | Available on                              | Inner port            |
@@ -20,9 +17,40 @@ Services in backend part:
 In local mode, Cookie with same-site ignored on http connection by default in chrome-based browsers. Select **"Disable"** in chrome config `Cookies without SameSite must be secure` chrome://flags/#cookies-without-same-site-must-be-secure
 
 ## Build
+
+### Build apps
 ```bash
-# windows
-.\build.ps1
-# linux
-./build.sh
+./build
+```
+
+### Set environment variables:
+* ITLABPROJ_GH_ACCESS_TOKEN - Personal Access Token from github for access to private repos on GitHub [link](https://github.com/settings/tokens).
+
+> While developing you can create `env.ps1` or `env.sh` files. They have already been ignored.
+> Powershell example
+> ```powershell
+> $Env:ITLABPROJ_GH_ACCESS_TOKEN='YOUR TOKEN'
+> ```
+> Bash example
+> ```bash
+> export ITLABPROJ_GH_ACCESS_TOKEN='YOUR TOKEN'
+> ```
+> And apply env to current session
+> ```bash
+> . ./env.ps1
+> # or
+> . ./env.sh
+> ```
+
+### Build docker images
+
+```bash
+. ./alias-back.ps1 # alias for docker compose
+dbc build --no-cache
+```
+
+## Run services
+
+```bash
+bdc up -d
 ```
