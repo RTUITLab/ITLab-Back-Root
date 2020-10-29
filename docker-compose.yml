@@ -25,7 +25,7 @@ services:
   projects-back:
     image: rtuitlab/itlab-projects-back
     environment:
-      - ITLABPROJ_GHACCESSTOKEN=${ITLABPROJ_GH_ACCESS_TOKEN?Place GitHub acces token for projects-back in ITLABPROJ_GH_ACCESS_TOKEN}
+      - ITLABPROJ_GHACCESSTOKEN=${ITLABPROJ_GH_ACCESS_TOKEN?Place GitHub access token for projects-back in ITLABPROJ_GH_ACCESS_TOKEN}
     logging:
       driver: "json-file"
       options:
