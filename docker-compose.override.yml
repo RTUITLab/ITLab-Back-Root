@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   proxy-back:
-    build: Proxy-Back
+    build: ${BACK_CONTEXT:-.}/Proxy-Back
     ports:
       - 5501:5501
       - 5502:5502
@@ -22,14 +22,14 @@ services:
       - ConnectionStrings__AdminLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
       - ConnectionStrings__AdminAuditLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
   back:
-    build: ITLab-Back/deploy
+    build: ${BACK_CONTEXT:-.}/ITLab-Back/deploy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - UseDebugEmailSender=true
       - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
       - DocsGeneratorSettings__AccessToken=DOCS_ACCESS.TokeN
   docsgen:
-    build: ITLab-DocsGen/deploy
+    build: ${BACK_CONTEXT:-.}/ITLab-DocsGen/deploy
     restart: on-failure
     environment:
       - Url=http://back:5503
@@ -37,7 +37,7 @@ services:
       - Header=Authorization
       - IssuerUrl=http://127.0.0.1.xip.io:5501
   projects-back:
-    build: ITLab-Projects/src/api
+    build: ${BACK_CONTEXT:-.}/ITLab-Projects/src/api
     restart: on-failure
     environment:
       # auth
