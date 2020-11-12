@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  back:
+    environment:
+      - UseDebugEmailSender=false
+      - ConnectionStrings__POSTGRES=${ITLAB_USERS_AND_EVENTS_DB?Place users and events db connection string}
+      - DocsGeneratorSettings__AccessToken=${ITLAB_DOCS_GEN_TOKEN?Place docs gen access token}
+      - EmailSenderOptions__BaseAddress=${ITLAB_EMAIL_SENDER_BASE_ADDRESS?Place email sender base address}
+      - EmailSenderOptions__Key=${ITLAB_EMAIL_SENDER_ACCESS_KEY?Place email sender api key}
+  docsgen:
+    environment:
+      - Url=http://back:5503
+      - Key=${ITLAB_DOCS_GEN_TOKEN?Place docs gen access token}
+      - Header=Authorization
+      - IssuerUrl=${ITLAB_IDENTITY_ISSUER?Place identity issuer}
+  projects-back:
+    build: ${BACK_CONTEXT:-.}/ITLab-Projects/src/api
+    restart: on-failure
+    environment:
+      # auth
+      - ITLABPROJ_KEYURL=http://proxy-back:5501//.well-known/openid-configuration/jwks
+      - ITLABPROJ_AUDIENCE=itlab
+      - ITLABPROJ_ISSUER=${ITLAB_IDENTITY_ISSUER?Place identity issuer}
+      - ITLABPROJ_SCOPE=itlab.projects
+      # db
+      - ITLABPROJ_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service}
+      - ITLABPROJ_DBPORT=27017
+      - ITLABPROJ_DBNAME=${ITLAB_PROJECTS_MONGO_DB?Place mongo db name for projects service}
+      - ITLABPROJ_PROJCOLNAME=projects
+      - ITLABPROJ_LABSCOLNAME=labels
+      - ITLABPROJ_ISSSCOLNAME=issues
+      # app
+      - ITLABPROJ_APPPORT=5505
+      - ITLABPROJ_TESTMODE=false
+      - ITLABPROJ_PROJFILEBRANCH=master
+      - ITLABPROJ_ELEMSPERPAGE=40
