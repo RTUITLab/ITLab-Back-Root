@@ -1,6 +1,12 @@
 version: '3.8'
 
 services:
+  proxy-back:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   back:
     environment:
       - UseDebugEmailSender=false
@@ -8,18 +14,26 @@ services:
       - DocsGeneratorSettings__AccessToken=${ITLAB_DOCS_GEN_TOKEN?Place docs gen access token}
       - EmailSenderOptions__BaseAddress=${ITLAB_EMAIL_SENDER_BASE_ADDRESS?Place email sender base address}
       - EmailSenderOptions__Key=${ITLAB_EMAIL_SENDER_ACCESS_KEY?Place email sender api key}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   docsgen:
     environment:
       - Url=http://back:5503
       - Key=${ITLAB_DOCS_GEN_TOKEN?Place docs gen access token}
       - Header=Authorization
       - IssuerUrl=${ITLAB_IDENTITY_ISSUER?Place identity issuer}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   projects-back:
-    build: ${BACK_CONTEXT:-.}/ITLab-Projects/src/api
-    restart: on-failure
     environment:
       # auth
-      - ITLABPROJ_KEYURL=http://proxy-back:5501//.well-known/openid-configuration/jwks
+      - ITLABPROJ_KEYURL=${ITLAB_IDENTITY_JWKSIURL?Place identity issuer ITLAB_IDENTITY_JWKSIURL}
       - ITLABPROJ_AUDIENCE=itlab
       - ITLABPROJ_ISSUER=${ITLAB_IDENTITY_ISSUER?Place identity issuer}
       - ITLABPROJ_SCOPE=itlab.projects
@@ -35,3 +49,24 @@ services:
       - ITLABPROJ_TESTMODE=false
       - ITLABPROJ_PROJFILEBRANCH=master
       - ITLABPROJ_ELEMSPERPAGE=40
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+  reports-back:
+    environment:
+    # db
+    - ITLAB_REPORTS_MONGO_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service}
+    - ITLAB_REPORTS_MONGO_PORT=27017
+    - ITLAB_REPORTS_MONGO_DB_NAME=${ITLAB_PROJECTS_MONGO_DB?Place mongo db name for projects service}
+    - ITLAB_REPORTS_MONGO_DB_COLLECTION_NAME=reports
+
+    # auth
+    - ITLAB_REPORTS_AUTH_KEY_URL=${ITLAB_IDENTITY_JWKSIURL?Place identity issuer ITLAB_IDENTITY_JWKSIURL}
+    - ITLAB_REPORTS_AUTH_ISSUER=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"

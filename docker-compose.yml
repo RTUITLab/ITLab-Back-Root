@@ -3,31 +3,31 @@ version: '3.8'
 services:
   proxy-back:
     image: rtuitlab/itlab-proxy-back
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
   back:
     image: rtuitlab/itlab-back
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
   docsgen:
     image: rtuitlab/itlab-docsgen
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
   projects-back:
     image: rtuitlab/itlab-projects-back
     environment:
-      - ITLABPROJ_GHACCESSTOKEN=${ITLABPROJ_GH_ACCESS_TOKEN?Place GitHub access token for projects-back in ITLABPROJ_GH_ACCESS_TOKEN}
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
+    - ITLABPROJ_GHACCESSTOKEN=${ITLABPROJ_GH_ACCESS_TOKEN?Place GitHub access token for projects-back in ITLABPROJ_GH_ACCESS_TOKEN}
+    # app
+    - ITLABPROJ_APPPORT=5505
+    # auth
+    - ITLABPROJ_AUDIENCE=itlab
+    - ITLABPROJ_SCOPE=itlab.projects
+
+
+  reports-back:
+    image: rtuitlab/itlab-reports-back
+    environment:
+    # app
+    - ITLAB_REPORTS_APP_PORT=5506
+    - ITLAB_REPORTS_APP_TEST_MODE=false
+    # auth
+    - ITLAB_REPORTS_AUTH_SCOPE=itlab.reports
+    - ITLAB_REPORTS_AUTH_AUDIENCE=itlab
+
+
+
+

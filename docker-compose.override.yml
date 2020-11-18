@@ -4,80 +4,94 @@ services:
   proxy-back:
     build: ${BACK_CONTEXT:-.}/Proxy-Back
     ports:
-      - 5501:5501
-      - 5502:5502
-      - 5503:5503
+    - 5501:5501
+    - 5502:5502
+    - 5503:5503
     restart: on-failure
   identity:
     environment:
-      - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
-      - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
-      - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
+    - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
+    - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
+    - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
   identity-admin:
     restart: on-failure
     environment:
-      - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
-      - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
-      - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
-      - ConnectionStrings__AdminLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
-      - ConnectionStrings__AdminAuditLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
+    - ConnectionStrings__ConfigurationDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
+    - ConnectionStrings__PersistedGrantDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
+    - ConnectionStrings__IdentityDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
+    - ConnectionStrings__AdminLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
+    - ConnectionStrings__AdminAuditLogDbConnection=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-identity-dev-db;Integrated Security=true;
   back:
     build: ${BACK_CONTEXT:-.}/ITLab-Back/deploy
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - UseDebugEmailSender=true
-      - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
-      - DocsGeneratorSettings__AccessToken=DOCS_ACCESS.TokeN
+    - ASPNETCORE_ENVIRONMENT=Development
+    - UseDebugEmailSender=true
+    - ConnectionStrings__POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-back-dev-db;Integrated Security=true;
+    - DocsGeneratorSettings__AccessToken=DOCS_ACCESS.TokeN
   docsgen:
     build: ${BACK_CONTEXT:-.}/ITLab-DocsGen/deploy
     restart: on-failure
     environment:
-      - Url=http://back:5503
-      - Key=DOCS_ACCESS.TokeN
-      - Header=Authorization
-      - IssuerUrl=http://127.0.0.1.xip.io:5501
+    - Url=http://back:5503
+    - Key=DOCS_ACCESS.TokeN
+    - Header=Authorization
+    - IssuerUrl=http://127.0.0.1.xip.io:5501
   projects-back:
     build: ${BACK_CONTEXT:-.}/ITLab-Projects/src/api
     restart: on-failure
     environment:
-      # auth
-      - ITLABPROJ_KEYURL=http://proxy-back:5501//.well-known/openid-configuration/jwks
-      - ITLABPROJ_AUDIENCE=itlab
-      - ITLABPROJ_ISSUER=http://127.0.0.1.xip.io:5501
-      - ITLABPROJ_SCOPE=itlab.projects
-      # db
-      - ITLABPROJ_HOST=mongodb
-      - ITLABPROJ_DBPORT=27017
-      - ITLABPROJ_DBNAME=itlab-projects-db
-      - ITLABPROJ_PROJCOLNAME=projects
-      - ITLABPROJ_LABSCOLNAME=labels
-      - ITLABPROJ_ISSSCOLNAME=issues
-      # app
-      - ITLABPROJ_APPPORT=5505
-      - ITLABPROJ_TESTMODE=false
-      - ITLABPROJ_PROJFILEBRANCH=master
-      - ITLABPROJ_ELEMSPERPAGE=40
+    # auth
+    - ITLABPROJ_KEYURL=http://proxy-back:5501//.well-known/openid-configuration/jwks
+    - ITLABPROJ_AUDIENCE=itlab
+    - ITLABPROJ_ISSUER=http://127.0.0.1.xip.io:5501
+    - ITLABPROJ_SCOPE=itlab.projects
+    # db
+    - ITLABPROJ_HOST=mongodb
+    - ITLABPROJ_DBPORT=27017
+    - ITLABPROJ_DBNAME=itlab-projects-dev-db
+    - ITLABPROJ_PROJCOLNAME=projects
+    - ITLABPROJ_LABSCOLNAME=labels
+    - ITLABPROJ_ISSSCOLNAME=issues
+    # app
+    - ITLABPROJ_TESTMODE=false
+    - ITLABPROJ_PROJFILEBRANCH=master
+    - ITLABPROJ_ELEMSPERPAGE=40
     ports:
-      - 5505:5505
+    - 5505:5505
+  reports-back:
+    build: ${BACK_CONTEXT:-.}/ITLab-Reports/src/ITLabReports/api
+    restart: on-failure
+    environment:
+    # db
+    - ITLAB_REPORTS_MONGO_HOST=mongodb
+    - ITLAB_REPORTS_MONGO_PORT=27017
+    - ITLAB_REPORTS_MONGO_DB_NAME=itlab-reports-dev-db
+    - ITLAB_REPORTS_MONGO_DB_COLLECTION_NAME=reports
+
+    # auth
+    - ITLAB_REPORTS_AUTH_KEY_URL=http://proxy-back:5501//.well-known/openid-configuration/jwks
+    - ITLAB_REPORTS_AUTH_ISSUER=http://127.0.0.1.xip.io:5501
+    ports:
+    - 5506:5506
   postgres:
     image: postgres:13-alpine
     environment:
-        - POSTGRES_PASSWORD=password
+    - POSTGRES_PASSWORD=password
     ports:
-        - 5432:5432
+    - 5432:5432
     restart: on-failure
     logging:
-        driver: "json-file"
-        options:
-            max-size: "200k"
-            max-file: "10"
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   mongodb:
     image: mongo:4.4
     ports:
-        - 27100:27017
+    - 27100:27017
     restart: on-failure
     logging:
-        driver: "json-file"
-        options:
-            max-size: "200k"
-            max-file: "10"
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
