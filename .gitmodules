@@ -19,3 +19,6 @@
 [submodule "ITLab-DocsGen"]
 	path = ITLab-DocsGen
 	url = https://github.com/RTUITLab/ITLab-DocsGen.git
+[submodule "MicroFileServer"]
+	path = MicroFileServer
+	url = https://github.com/RTUITLab/MicroFileServer.git

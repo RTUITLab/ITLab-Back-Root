@@ -27,6 +27,16 @@ services:
     # auth
     - ITLAB_REPORTS_AUTH_SCOPE=itlab.reports
     - ITLAB_REPORTS_AUTH_AUDIENCE=itlab
+  mfs:
+    image: rtuitlab/mfs
+    environment:
+    # app
+    - MFS_APP_PORT=5507
+    - MFS_APP_TEST_MODE=false
+    - MFS_APP_MFS_APP_MAX_FILE_SIZE=100
+    - MFS_APP_PATH_PREFIX=/api/mfs
+    # auth
+    - MFS_AUTH_AUDIENCE=itlab
 
 
 
