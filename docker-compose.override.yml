@@ -88,6 +88,18 @@ services:
     - MFS_AUTH_ISSUER=http://127.0.0.1.xip.io:5501
     ports:
     - 5507:5507
+  salary: 
+    build: ${BACK_CONTEXT:-.}/ITlab-Salary/deploy
+    restart: on-failure
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - ConnectionStrings__MongoDb=mongodb://mongodb:27017/itlab-salary-dev-db
+    - JwtOptions__Authority=http://127.0.0.1.xip.io:5501
+    - TESTS=false
+    - EventsServiceType=FromEventsApi
+    - RemoteApiEventsServiceOptions__ClientSecret=itlab_salary_secret
+    - TokenUrl=http://127.0.0.1.xip.io:5501/connect/token
+    - BaseUrl=http://proxy:5500/api/event/
   postgres:
     image: postgres:13-alpine
     environment:

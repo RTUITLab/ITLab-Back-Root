@@ -29,6 +29,7 @@ class Build : NukeBuild
     AbsolutePath BackDirectory = RootDirectory / "ITLab-Back";
     AbsolutePath DocsGenDirectory = RootDirectory / "ITLab-DocsGen";
     AbsolutePath NotifyDirectory = RootDirectory / "ITLab-Notify";
+    AbsolutePath SalaryDirectory = RootDirectory / "ITLab-Salary";
 
     Target BuildIdentity => _ => _
         .Executes(() =>
@@ -62,13 +63,19 @@ class Build : NukeBuild
                 windowsName: "cmd", windowsArgs: "/c gradlew copyLibToDeploy",
                 workingDirectory: NotifyDirectory);
         });
+    Target BuildSalary => _ => _
+        .Executes(() =>
+        {
+            Run("nuke", workingDirectory: SalaryDirectory);
+        });
 
     Target BuildAll => _ => _
         .DependsOn(
             BuildIdentity,
             BuildBack,
             BuildDocsGen,
-            BuildNotify)
+            BuildNotify,
+            BuildSalary)
         .Executes(() =>
         {
         });

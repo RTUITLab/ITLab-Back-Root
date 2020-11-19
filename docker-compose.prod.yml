@@ -57,14 +57,25 @@ services:
   reports-back:
     environment:
     # db
-    - ITLAB_REPORTS_MONGO_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service}
+    - ITLAB_REPORTS_MONGO_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service ITLAB_PROJECTS_MONGO_HOST}
     - ITLAB_REPORTS_MONGO_PORT=27017
-    - ITLAB_REPORTS_MONGO_DB_NAME=${ITLAB_PROJECTS_MONGO_DB?Place mongo db name for projects service}
+    - ITLAB_REPORTS_MONGO_DB_NAME=${ITLAB_PROJECTS_MONGO_DB?Place mongo db name for projects service ITLAB_PROJECTS_MONGO_DB}
     - ITLAB_REPORTS_MONGO_DB_COLLECTION_NAME=reports
 
     # auth
     - ITLAB_REPORTS_AUTH_KEY_URL=${ITLAB_IDENTITY_JWKSIURL?Place identity issuer ITLAB_IDENTITY_JWKSIURL}
     - ITLAB_REPORTS_AUTH_ISSUER=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+  salary: 
+    environment:
+    - ConnectionStrings__MongoDb=mongodb://${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service ITLAB_PROJECTS_MONGO_HOST}:27017/${ITLAB_SALARY_MONGO_DB?Place mongo db name for salary service ITLAB_SALARY_MONGO_DB}
+    - JwtOptions__Authority=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}
+    - RemoteApiEventsServiceOptions__ClientSecret=${ITLAB_SALARY_CLIENT_SECRET?Place salary client secret ITLAB_SALARY_CLIENT_SECRET}
+    - RemoteApiEventsServiceOptions__TokenUrl=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}/connect/token
     logging:
       driver: "json-file"
       options:

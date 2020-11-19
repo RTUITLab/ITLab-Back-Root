@@ -37,6 +37,13 @@ services:
     - MFS_APP_PATH_PREFIX=/api/mfs
     # auth
     - MFS_AUTH_AUDIENCE=itlab
+  salary:
+    image: rtuitlab/salary
+    environment:
+    - JwtOptions__Audience=itlab
+    - TESTS=false
+    - EventsServiceType=FromEventsApi
+    - RemoteApiEventsServiceOptions__BaseUrl=http://proxy:5500/api/event/
 
 
 
