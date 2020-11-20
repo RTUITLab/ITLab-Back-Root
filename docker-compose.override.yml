@@ -69,7 +69,7 @@ services:
     - ITLAB_REPORTS_MONGO_DB_COLLECTION_NAME=reports
 
     # auth
-    - ITLAB_REPORTS_AUTH_KEY_URL=http://proxy-back:5501//.well-known/openid-configuration/jwks
+    - ITLAB_REPORTS_AUTH_KEY_URL=http://proxy-back:5501/.well-known/openid-configuration/jwks
     - ITLAB_REPORTS_AUTH_ISSUER=http://127.0.0.1.xip.io:5501
     ports:
     - 5506:5506
@@ -84,7 +84,7 @@ services:
     - MFS_MONGO_DB_COLLECTION_NAME=fs.files
 
     # auth
-    - MFS_AUTH_KEY_URL=http://proxy-back:5501//.well-known/openid-configuration/jwks
+    - MFS_AUTH_KEY_URL=http://proxy-back:5501/.well-known/openid-configuration/jwks
     - MFS_AUTH_ISSUER=http://127.0.0.1.xip.io:5501
     ports:
     - 5507:5507
