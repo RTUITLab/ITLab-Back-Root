@@ -13,7 +13,10 @@ services:
       - ConnectionStrings__POSTGRES=${ITLAB_USERS_AND_EVENTS_DB?Place users and events db connection string}
       - DocsGeneratorSettings__AccessToken=${ITLAB_DOCS_GEN_TOKEN?Place docs gen access token}
       - EmailSenderOptions__BaseAddress=${ITLAB_EMAIL_SENDER_BASE_ADDRESS?Place email sender base address}
-      - EmailSenderOptions__Key=${ITLAB_EMAIL_SENDER_ACCESS_KEY?Place email sender api key}
+      - EmailSenderOptions__Key=${ITLAB_EMAIL_SENDER_ACCESS_KEY?Place email sender api key ITLAB_EMAIL_SENDER_ACCESS_KEY}
+      - Authority=${ITLAB_IDENTITY_ISSUER?Place identity issuer}
+      - DB_TYPE=POSTGRES
+      - DB_INIT=false
     logging:
       driver: "json-file"
       options:
@@ -70,9 +73,25 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+  mfs:
+    environment:
+    # db
+    - MFS_MONGO_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service ITLAB_PROJECTS_MONGO_HOST}
+    - MFS_MONGO_PORT=27017
+    - MFS_MONGO_DB_NAME=${ITLAB_MFS_MONGO_DB?Place mongo db name for projects service ITLAB_MFS_MONGO_DB}
+    - MFS_MONGO_DB_COLLECTION_NAME=fs.files
+
+    # auth
+    - MFS_AUTH_KEY_URL=${ITLAB_IDENTITY_JWKSIURL?Place identity issuer ITLAB_IDENTITY_JWKSIURL}
+    - MFS_AUTH_ISSUER=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   salary: 
     environment:
-    - ConnectionStrings__MongoDb=mongodb://${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service ITLAB_PROJECTS_MONGO_HOST}:27017/${ITLAB_SALARY_MONGO_DB?Place mongo db name for salary service ITLAB_SALARY_MONGO_DB}
+    - ConnectionStrings__MongoDb=${ITLAB_SALARY_MONGO_DB?Place mondo db connection string ITLAB_SALARY_MONGO_DB}
     - JwtOptions__Authority=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}
     - RemoteApiEventsServiceOptions__ClientSecret=${ITLAB_SALARY_CLIENT_SECRET?Place salary client secret ITLAB_SALARY_CLIENT_SECRET}
     - RemoteApiEventsServiceOptions__TokenUrl=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}/connect/token

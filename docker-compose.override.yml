@@ -41,7 +41,7 @@ services:
     restart: on-failure
     environment:
     # auth
-    - ITLABPROJ_KEYURL=http://proxy-back:5501//.well-known/openid-configuration/jwks
+    - ITLABPROJ_KEYURL=http://proxy-back:5501/.well-known/openid-configuration/jwks
     - ITLABPROJ_AUDIENCE=itlab
     - ITLABPROJ_ISSUER=http://127.0.0.1.xip.io:5501
     - ITLABPROJ_SCOPE=itlab.projects
