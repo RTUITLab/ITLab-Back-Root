@@ -41,12 +41,7 @@ services:
       - ITLABPROJ_ISSUER=${ITLAB_IDENTITY_ISSUER?Place identity issuer}
       - ITLABPROJ_SCOPE=itlab.projects
       # db
-      - ITLABPROJ_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service}
-      - ITLABPROJ_DBPORT=27017
-      - ITLABPROJ_DBNAME=${ITLAB_PROJECTS_MONGO_DB?Place mongo db name for projects service}
-      - ITLABPROJ_PROJCOLNAME=projects
-      - ITLABPROJ_LABSCOLNAME=labels
-      - ITLABPROJ_ISSSCOLNAME=issues
+      - ITLABPROJ_URI=${ITLAB_PROJECTS_MONGO_DB?Place mongo connection string for projects service ITLAB_PROJECTS_MONGO_DB}
       # app
       - ITLABPROJ_APPPORT=5505
       - ITLABPROJ_TESTMODE=false
@@ -60,10 +55,7 @@ services:
   reports-back:
     environment:
     # db
-    - ITLAB_REPORTS_MONGO_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service ITLAB_PROJECTS_MONGO_HOST}
-    - ITLAB_REPORTS_MONGO_PORT=27017
-    - ITLAB_REPORTS_MONGO_DB_NAME=${ITLAB_PROJECTS_MONGO_DB?Place mongo db name for projects service ITLAB_PROJECTS_MONGO_DB}
-    - ITLAB_REPORTS_MONGO_DB_COLLECTION_NAME=reports
+    - ITLAB_REPORTS_MONGO_URI=${ITLAB_REPORTS_MONGO_DB?Place mongo connection string for reports service ITLAB_REPORTS_MONGO_DB}
 
     # auth
     - ITLAB_REPORTS_AUTH_KEY_URL=${ITLAB_IDENTITY_JWKSIURL?Place identity issuer ITLAB_IDENTITY_JWKSIURL}
@@ -76,10 +68,7 @@ services:
   mfs:
     environment:
     # db
-    - MFS_MONGO_HOST=${ITLAB_PROJECTS_MONGO_HOST?Place mongo host for projects service ITLAB_PROJECTS_MONGO_HOST}
-    - MFS_MONGO_PORT=27017
-    - MFS_MONGO_DB_NAME=${ITLAB_MFS_MONGO_DB?Place mongo db name for projects service ITLAB_MFS_MONGO_DB}
-    - MFS_MONGO_DB_COLLECTION_NAME=fs.files
+    - MFS_MONGO_URI=${ITLAB_MFS_MONGO_DB?Place mongo connection string for mfs service ITLAB_MFS_MONGO_DB}
 
     # auth
     - MFS_AUTH_KEY_URL=${ITLAB_IDENTITY_JWKSIURL?Place identity issuer ITLAB_IDENTITY_JWKSIURL}
