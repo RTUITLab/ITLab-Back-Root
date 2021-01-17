@@ -8,8 +8,9 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: PushDockerImage
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Push Docker Image
   jobs:  
   - job: Build
     displayName: Build

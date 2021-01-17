@@ -1,6 +1,9 @@
 # ITLab-Back-Root
 Root config for ITLab-back
 
+Proxy Back
+
+[![Build Status](https://dev.azure.com/rtuitlab/RTU%20IT%20Lab/_apis/build/status/ITLab/ITLab-Back-Root?branchName=master)](https://dev.azure.com/rtuitlab/RTU%20IT%20Lab/_build/latest?definitionId=142&branchName=master)
 
 Services in backend part:
 | Service        | Status      | Available on                               | Inner port            | CI/CD              |
