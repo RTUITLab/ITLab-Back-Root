@@ -11,7 +11,7 @@ Services in backend part:
 | Identity       | Done        | http://127.0.0.1.xip.io:5501               | 5501                  | :white_check_mark: |
 | Identity Admin | Done        | http://127.0.0.1.xip.io:5502               | 5502                  | :white_check_mark: |
 | Backend        | Done        | http://127.0.0.1.xip.io:5503/api/          | 5503                  | :white_check_mark: |
-| DocsGen        | Done        | http://127.0.0.1.xip.io:5503/api/docsgen/  | 8080 (should be 5504) | no                 |
+| DocsGen        | Done        | http://127.0.0.1.xip.io:5503/api/docsgen/  | 8080 (should be 5504) | :white_check_mark: |
 | Projects       | Done        | http://127.0.0.1.xip.io:5503/api/projects/ | 5505                  | :white_check_mark: |
 | Reports        | Done        | http://127.0.0.1.xip.io:5503/api/reports/  | 5506                  | no                 |
 | MFS            | Done        | http://127.0.0.1.xip.io:5503/api/mfs/      | 5507                  | no                 |
