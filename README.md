@@ -8,8 +8,8 @@ Proxy Back
 Services in backend part:
 | Service        | Status      | Available on                               | Inner port            | CI/CD              |
 | -------------- | ----------- | ------------------------------------------ | --------------------- | ------------------ |
-| Identity       | Done        | http://127.0.0.1.xip.io:5501               | 5501                  | no                 |
-| Identity Admin | Done        | http://127.0.0.1.xip.io:5502               | 5502                  | no                 |
+| Identity       | Done        | http://127.0.0.1.xip.io:5501               | 5501                  | :white_check_mark: |
+| Identity Admin | Done        | http://127.0.0.1.xip.io:5502               | 5502                  | :white_check_mark: |
 | Backend        | Done        | http://127.0.0.1.xip.io:5503/api/          | 5503                  | :white_check_mark: |
 | DocsGen        | Done        | http://127.0.0.1.xip.io:5503/api/docsgen/  | 8080 (should be 5504) | no                 |
 | Projects       | Done        | http://127.0.0.1.xip.io:5503/api/projects/ | 5505                  | :white_check_mark: |
