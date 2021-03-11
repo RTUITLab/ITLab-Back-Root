@@ -1,0 +1,1 @@
+export ITLABPROJ_GH_ACCESS_TOKEN="personal_access_token_from_github_for_access_to_private_repos_on_github"
