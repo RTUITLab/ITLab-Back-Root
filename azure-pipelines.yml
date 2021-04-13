@@ -1,15 +1,37 @@
 trigger:
 - master
+- develop
 
 resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  ${{ if notIn(variables['Build.SourceBranchName'], 'master', 'develop') }}:
+    buildImage: false
+    deployService: false
+    deployEnvironment: 'no'
+    imageTags: 'no'
+    serviceName: 'no'
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+    buildImage: true
+    deployService: true
+    deployEnvironment: development
+    imageTags: |
+      $(Build.BuildId)
+      develop
+    serviceName: itlab_proxy-develop-back
+  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    buildImage: true
+    deployService: true
+    deployEnvironment: production
+    imageTags: |
+      $(Build.BuildId)
+      latest
+    serviceName: itlab_proxy-back
 
 stages:
 - stage: PushDockerImage
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), ${{variables.buildImage}})
   displayName: Push Docker Image
   jobs:  
   - job: Build
@@ -25,16 +47,14 @@ stages:
         command: 'buildAndPush'
         Dockerfile: 'Proxy-Back/Dockerfile'
         buildContext: 'Proxy-Back'
-        tags: |
-          $(tag)
-          latest
+        tags: ${{variables.imageTags}}
 - stage: UpdateService
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), ${{variables.deployService}})
   jobs:
   - deployment: Deploy
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'production'
+    environment: ${{variables.deployEnvironment}}
     strategy:
       runOnce:
         deploy:
@@ -44,5 +64,5 @@ stages:
               inputs:
                 sshEndpoint: 'swarm manager'
                 runOptions: 'commands'
-                commands: 'docker service update --image rtuitlab/itlab-proxy-back:$(tag) itlab_proxy-back'
+                commands: 'docker service update --image rtuitlab/itlab-proxy-back:$(Build.BuildId) ${{variables.serviceName}}'
                 readyTimeout: '20000'
