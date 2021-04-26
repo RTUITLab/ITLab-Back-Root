@@ -104,7 +104,7 @@ services:
   mongodb:
     image: mongo:4.4
     ports:
-    - 27100:27017
+    - 27017:27017
     restart: on-failure
     logging:
       driver: "json-file"

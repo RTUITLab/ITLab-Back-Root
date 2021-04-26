@@ -44,6 +44,7 @@ services:
     - TESTS=false
     - EventsServiceType=FromEventsApi
     - RemoteApiEventsServiceOptions__BaseUrl=http://proxy:5500/api/event/
+    - RemoteApiReportsServiceOptions__BaseUrl=http://proxy:5500/api/reports?sorted_by=date
 
 
 
