@@ -45,7 +45,5 @@ services:
     - EventsServiceType=FromEventsApi
     - RemoteApiEventsServiceOptions__BaseUrl=http://proxy:5500/api/event/
     - RemoteApiReportsServiceOptions__BaseUrl=http://proxy:5500/api/reports?sorted_by=date
-
-
-
-
+  feedback:
+    image: rtuitlab/itlab-feedback

@@ -15,8 +15,9 @@ Services in backend part:
 | Projects       | Done        | http://127.0.0.1.xip.io:5503/api/projects/ | 5505                  | :white_check_mark: |
 | Reports        | Done        | http://127.0.0.1.xip.io:5503/api/reports/  | 5506                  | no                 |
 | MFS            | Done        | http://127.0.0.1.xip.io:5503/api/mfs/      | 5507                  | no                 |
-| Salary         | Done        | -                                          | -                     | no                 |
+| Salary         | Done        | -                                          | 5508                  | no                 |
 | Notify         | In progress | -                                          | -                     | no                 |
+| Feedback       | In progress | -                                          | 5509                  | :white_check_mark: |
 
 In local mode, Cookie with same-site ignored on http connection by default in chrome-based browsers. Select **"Disable"** in chrome config `Cookies without SameSite must be secure` chrome://flags/#cookies-without-same-site-must-be-secure
 

@@ -91,3 +91,14 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+  feedback:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:5509
+      - POSTGRES=${ITLAB_FEEDBACK_DB?Provide postgres connection string in ITLAB_FEEDBACK_DB}
+      - IdentityURL=${ITLAB_IDENTITY_ISSUER?Provide identity url ITLAB_IDENTITY_ISSUER}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
