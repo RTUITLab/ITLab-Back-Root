@@ -47,3 +47,5 @@ services:
     - RemoteApiReportsServiceOptions__BaseUrl=http://proxy:5500/api/reports?sorted_by=date
   feedback:
     image: rtuitlab/itlab-feedback
+  notify:
+    image: rtuitlab/itlab-notify

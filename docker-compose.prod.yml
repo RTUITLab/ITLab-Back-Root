@@ -19,6 +19,7 @@ services:
       - EmailTemplateSettings__ResetPasswordTemplateUrl=${ITLAB_EMAIL_TEMPLATE_RESET_PASSWORD_URL?Place email reset password template url ITLAB_EMAIL_TEMPLATE_RESET_PASSWORD_URL}
       - DB_TYPE=POSTGRES
       - DB_INIT=false
+      - AuthHeaderSettings__Key=${ITLAB_NOTIFY_AUTH_TOKEN?Provide notify get all users token from ITLab-Back ITLAB_NOTIFY_AUTH_TOKEN}
     logging:
       driver: "json-file"
       options:
@@ -97,6 +98,24 @@ services:
       - ASPNETCORE_URLS=http://*:5509
       - POSTGRES=${ITLAB_FEEDBACK_DB?Provide postgres connection string in ITLAB_FEEDBACK_DB}
       - IdentityURL=${ITLAB_IDENTITY_ISSUER?Provide identity url ITLAB_IDENTITY_ISSUER}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+  notify:
+    environment:
+      - ITLAB_NOTIFY_PORT=5511
+      - ITLAB_NOTIFY_REDIS_HOST=${ITLAB_NOTIFY_REDIS_HOST?Provide redis host in ITLAB_NOTIFY_REDIS_HOST}
+      - ITLAB_NOTIFY_REDIS_PORT=${ITLAB_NOTIFY_REDIS_PORT?Provide redis port in ITLAB_NOTIFY_REDIS_PORT}
+      - ITLAB_NOTIFY_REDIS_PASSWORD=${ITLAB_NOTIFY_REDIS_PASSWORD?Provide redis password in ITLAB_NOTIFY_REDIS_PASSWORD}
+      - ITLAB_NOTIFY_DB_HOST=${ITLAB_NOTIFY_DB_HOST?Provide notify postgres database host in ITLAB_NOTIFY_DB_HOST}
+      - ITLAB_NOTIFY_DB_PORT=${ITLAB_NOTIFY_DB_PORT?Provide notify postgres database port in ITLAB_NOTIFY_DB_PORT}
+      - ITLAB_NOTIFY_DB_NAME=${ITLAB_NOTIFY_DB_NAME?Provide notify postgres database name in ITLAB_NOTIFY_DB_NAME}
+      - ITLAB_NOTIFY_DB_USER=${ITLAB_NOTIFY_DB_USER?Provide notify postgres database username in ITLAB_NOTIFY_DB_USER}
+      - ITLAB_NOTIFY_DB_PASS=${ITLAB_NOTIFY_DB_PASS?Provide notify postgres database password in ITLAB_NOTIFY_DB_PASS}
+      - ITLAB_NOTIFY_AUTH_URL=${ITLAB_NOTIFY_AUTH_URL?Provide notify get all users url from ITLab-Back ITLAB_NOTIFY_AUTH_URL}
+      - ITLAB_NOTIFY_AUTH_TOKEN=${ITLAB_NOTIFY_AUTH_TOKEN?Provide notify get all users token from ITLab-Back ITLAB_NOTIFY_AUTH_TOKEN}
     logging:
       driver: "json-file"
       options:
