@@ -44,7 +44,10 @@ services:
     - TESTS=false
     - EventsServiceType=FromEventsApi
     - RemoteApiEventsServiceOptions__BaseUrl=http://proxy:5500/api/event/
-
-
-
-
+    - RemoteApiReportsServiceOptions__BaseUrl=http://proxy:5500/api/reports?sorted_by=date
+  feedback:
+    image: rtuitlab/itlab-feedback
+  notify:
+    image: rtuitlab/itlab-notify
+    environment:
+      - ITLAB_NOTIFY_AUTH_URL=http://proxy:5500/api/user/all

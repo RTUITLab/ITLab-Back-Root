@@ -22,3 +22,9 @@
 [submodule "MicroFileServer"]
 	path = MicroFileServer
 	url = https://github.com/RTUITLab/MicroFileServer.git
+[submodule "ITLab-Feedback"]
+	path = ITLab-Feedback
+	url = https://github.com/RTUITLab/ITLab-Feedback
+[submodule "ITLab-PushNotificationService"]
+	path = ITLab-PushNotificationService
+	url = https://github.com/RTUITLab/PushNotificationService

@@ -30,6 +30,7 @@ class Build : NukeBuild
     AbsolutePath DocsGenDirectory = RootDirectory / "ITLab-DocsGen";
     AbsolutePath NotifyDirectory = RootDirectory / "ITLab-Notify";
     AbsolutePath SalaryDirectory = RootDirectory / "ITLab-Salary";
+    AbsolutePath FeedbackDirectory = RootDirectory / "ITLab-Feedback";
 
     Target BuildIdentity => _ => _
         .Executes(() =>
@@ -69,13 +70,20 @@ class Build : NukeBuild
             Run("nuke", workingDirectory: SalaryDirectory);
         });
 
+    Target BuildFeedback => _ => _
+        .Executes(() =>
+        {
+            Run("nuke", workingDirectory: FeedbackDirectory);
+        });
+
     Target BuildAll => _ => _
         .DependsOn(
             BuildIdentity,
             BuildBack,
             BuildDocsGen,
             BuildNotify,
-            BuildSalary)
+            BuildSalary,
+            BuildFeedback)
         .Executes(() =>
         {
         });
