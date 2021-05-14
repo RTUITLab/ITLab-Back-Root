@@ -114,8 +114,9 @@ services:
       - ITLAB_NOTIFY_DB_NAME=${ITLAB_NOTIFY_DB_NAME?Provide notify postgres database name in ITLAB_NOTIFY_DB_NAME}
       - ITLAB_NOTIFY_DB_USER=${ITLAB_NOTIFY_DB_USER?Provide notify postgres database username in ITLAB_NOTIFY_DB_USER}
       - ITLAB_NOTIFY_DB_PASS=${ITLAB_NOTIFY_DB_PASS?Provide notify postgres database password in ITLAB_NOTIFY_DB_PASS}
-      - ITLAB_NOTIFY_AUTH_URL=${ITLAB_NOTIFY_AUTH_URL?Provide notify get all users url from ITLab-Back ITLAB_NOTIFY_AUTH_URL}
       - ITLAB_NOTIFY_AUTH_TOKEN=${ITLAB_NOTIFY_AUTH_TOKEN?Provide notify get all users token from ITLab-Back ITLAB_NOTIFY_AUTH_TOKEN}
+      - ITLAB_NOTIFY_PUSH_CHANNEL=${ITLAB_NOTIFY_PUSH_CHANNEL?Provide notify reids publish channel ITLAB_NOTIFY_PUSH_CHANNEL}
+      - ITLAB_NOTIFY_AUTH_GET_QUERY=${ITLAB_NOTIFY_AUTH_GET_QUERY-}
     logging:
       driver: "json-file"
       options:

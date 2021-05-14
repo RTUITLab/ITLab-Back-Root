@@ -49,3 +49,5 @@ services:
     image: rtuitlab/itlab-feedback
   notify:
     image: rtuitlab/itlab-notify
+    environment:
+      - ITLAB_NOTIFY_AUTH_URL=http://proxy:5500/api/user/all
