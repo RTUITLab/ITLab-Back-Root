@@ -2,12 +2,14 @@ version: '3.8'
 
 services:
   proxy-back:
+    image: registry.rtuitlab.dev/rtuitlab/itlab-proxy-back
     logging:
       driver: "json-file"
       options:
         max-size: "200k"
         max-file: "10"
   back:
+    image: registry.rtuitlab.dev/rtuitlab/itlab-back
     environment:
       - UseDebugEmailSender=false
       - ConnectionStrings__POSTGRES=${ITLAB_USERS_AND_EVENTS_DB?Place users and events db connection string}
@@ -26,6 +28,7 @@ services:
         max-size: "200k"
         max-file: "10"
   docsgen:
+    image: registry.rtuitlab.dev/rtuitlab/itlab-docsgen
     environment:
       - Url=http://back:5503
       - Key=${ITLAB_DOCS_GEN_TOKEN?Place docs gen access token}
@@ -37,6 +40,7 @@ services:
         max-size: "200k"
         max-file: "10"
   reports-back:
+    image: registry.rtuitlab.dev/rtuitlab/itlab-reports-back
     environment:
     # db
     - ITLAB_REPORTS_MONGO_URI=${ITLAB_REPORTS_MONGO_DB?Place mongo connection string for reports service ITLAB_REPORTS_MONGO_DB}
@@ -50,6 +54,7 @@ services:
         max-size: "200k"
         max-file: "10"
   mfs:
+    image: registry.rtuitlab.dev/rtuitlab/mfs
     environment:
     # db
     - MFS_MONGO_URI=${ITLAB_MFS_MONGO_DB?Place mongo connection string for mfs service ITLAB_MFS_MONGO_DB}
@@ -63,6 +68,7 @@ services:
         max-size: "200k"
         max-file: "10"
   salary: 
+    image: registry.rtuitlab.dev/rtuitlab/salary
     environment:
     - ConnectionStrings__MongoDb=${ITLAB_SALARY_MONGO_DB?Place mondo db connection string ITLAB_SALARY_MONGO_DB}
     - JwtOptions__Authority=${ITLAB_IDENTITY_ISSUER?Place identity issuer ITLAB_IDENTITY_ISSUER}
