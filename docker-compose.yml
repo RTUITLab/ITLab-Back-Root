@@ -7,17 +7,6 @@ services:
     image: rtuitlab/itlab-back
   docsgen:
     image: rtuitlab/itlab-docsgen
-  projects-back:
-    image: rtuitlab/itlab-projects-back
-    environment:
-    - ITLABPROJ_GHACCESSTOKEN=${ITLABPROJ_GH_ACCESS_TOKEN?Place GitHub access token for projects-back in ITLABPROJ_GH_ACCESS_TOKEN}
-    # app
-    - ITLABPROJ_APPPORT=5505
-    # auth
-    - ITLABPROJ_AUDIENCE=itlab
-    - ITLABPROJ_SCOPE=itlab.projects
-
-
   reports-back:
     image: rtuitlab/itlab-reports-back
     environment:
@@ -45,9 +34,3 @@ services:
     - EventsServiceType=FromEventsApi
     - RemoteApiEventsServiceOptions__BaseUrl=http://proxy:5500/api/event/
     - RemoteApiReportsServiceOptions__BaseUrl=http://proxy:5500/api/reports?sorted_by=date
-  feedback:
-    image: rtuitlab/itlab-feedback
-  notify:
-    image: rtuitlab/itlab-notify
-    environment:
-      - ITLAB_NOTIFY_AUTH_URL=http://proxy:5500/api/user/all
