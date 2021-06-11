@@ -36,23 +36,6 @@ services:
     - Key=DOCS_ACCESS.TokeN
     - Header=Authorization
     - IssuerUrl=http://127.0.0.1.xip.io:5501
-  projects-back:
-    build: ${BACK_CONTEXT:-.}/ITLab-Projects/src/api
-    restart: on-failure
-    environment:
-    # auth
-    - ITLABPROJ_KEYURL=http://proxy-back:5501/.well-known/openid-configuration/jwks
-    - ITLABPROJ_AUDIENCE=itlab
-    - ITLABPROJ_ISSUER=http://127.0.0.1.xip.io:5501
-    - ITLABPROJ_SCOPE=itlab.projects
-    # db
-    - ITLABPROJ_URI=mongodb://mongodb:27017/itlab-projects-dev-db
-    # app
-    - ITLABPROJ_TESTMODE=false
-    - ITLABPROJ_PROJFILEBRANCH=master
-    - ITLABPROJ_ELEMSPERPAGE=40
-    ports:
-    - 5505:5505
   reports-back:
     build: ${BACK_CONTEXT:-.}/ITLab-Reports/src/ITLabReports/api
     restart: on-failure
@@ -89,15 +72,6 @@ services:
     - RemoteApiEventsServiceOptions__ClientSecret=itlab_salary_secret
     - TokenUrl=http://127.0.0.1.xip.io:5501/connect/token
     - BaseUrl=http://proxy:5500/api/event/
-  feedback:
-    build: ${BACK_CONTEXT:-.}/ITLab-Feedback/Deploy
-    restart: on-failure
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - POSTGRES=User ID=postgres;Password=password;Server=postgres;Port=5432;Database=itlab-feedback-db;Integrated Security=true;
-      - IdentityURL=http://127.0.0.1.xip.io:5501
-    ports:
-      - 5509:5509
   postgres:
     image: postgres:13-alpine
     environment:
