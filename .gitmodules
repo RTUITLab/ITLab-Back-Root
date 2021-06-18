@@ -28,3 +28,6 @@
 [submodule "ITLab-PushNotificationService"]
 	path = ITLab-PushNotificationService
 	url = https://github.com/RTUITLab/PushNotificationService
+[submodule "ITLab-Purchases"]
+	path = ITLab-Purchases
+	url = https://github.com/RTUITLab/ITLab-Purchases.git
